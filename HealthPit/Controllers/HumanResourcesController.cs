@@ -127,7 +127,9 @@ namespace HealthPit.Controllers
             {
                 return Ok(employees
                     .Include(u => u.Position)
-                    .Include(u => u.Shifts.Where(u => u.Violation == true)));
+                    .Include(u => u.Shifts
+                        .Where(u => u.StartTime.Month == DateTime.Now.Month)
+                        .Where(u => u.Violation == true)));
             }
 
             string _position = SurveillanceInitializer.FirstCharToUpper(position);
@@ -137,7 +139,9 @@ namespace HealthPit.Controllers
                 return Ok(employees
                     .Where(x => x.Position.Name == _position)
                     .Include(u => u.Position)
-                    .Include(u => u.Shifts.Where(u => u.Violation == true)));
+                    .Include(u => u.Shifts
+                        .Where(u => u.StartTime.Month == DateTime.Now.Month)
+                        .Where(u => u.Violation == true)));
             }
 
             else

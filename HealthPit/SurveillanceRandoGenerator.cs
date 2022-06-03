@@ -32,7 +32,7 @@ namespace HealthPit
             TimeOnly maxWorkHours = new(14, 30);            
 
             Faker<Shift> testShift = new Faker<Shift>()
-                .RuleFor(u => u.StartTime, f => startDate.AddDays(f.Random.Int(1, 99)).ToDateTime(new(0, 0)) + f.Date.BetweenTimeOnly(new(8, 45), new(9, 30)).ToTimeSpan())
+                .RuleFor(u => u.StartTime, f => startDate.AddDays(f.Random.Int(-45, 45)).ToDateTime(new(0, 0)) + f.Date.BetweenTimeOnly(new(8, 45), new(9, 30)).ToTimeSpan())
                 .RuleFor(u => u.EndTime, (f, u) => u.StartTime + f.Date.BetweenTimeOnly(minWorkHours, maxWorkHours).ToTimeSpan())
                 .RuleFor(u => u.HoursWorked, (f, u) => Convert.ToInt32((u.EndTime - u.StartTime).TotalHours))
                 .RuleFor(u => u.EmployeeId, f => f.Random.Int(1, employeesCount));
